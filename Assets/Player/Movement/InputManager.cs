@@ -50,12 +50,12 @@ public class InputManager : MonoBehaviour
 
     public Vector2 SetPlayerMovement()
     {
-        return horzInput;
+        return CombineMovement();
     }
 
     private void ReceivePlayerMovement()
     {
-        playerMovement.ReceiveInput(CombineMovement());
+        // playerMovement.ReceiveInput(CombineMovement());
         // playerMovement.ReceiveInput(horzInput);
         // playerMovement.ReceiveJumpInput(PlayerJump());
         // playerMovement.ReceiveSprintInput(sprintInput);

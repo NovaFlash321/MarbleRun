@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 1761339226}
   - component: {fileID: 1761339227}
   - component: {fileID: 1761339230}
+  - component: {fileID: 1761339231}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Untagged
@@ -502,6 +503,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marbleObject: {fileID: 1173547407}
   playerCamera: {fileID: 1687258584}
+  playerInput: {fileID: 1761339230}
+  forceMultiplier: 1.03
+  endpointSmoothSlider: 0.217
 --- !u!114 &1761339230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +519,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1761339227}
-  inputRate: 0.78
+  inputRate: 2
+--- !u!114 &1761339231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761339225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b6f52539b2b0741a7dfc98b020311b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0
