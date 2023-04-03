@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform marbleTransform;
     [SerializeField, Tooltip("The direction the camera is facing")] private Camera playerCamera;
     [SerializeField] InputManager playerInput;
+    [SerializeField] private Transform gravitationalDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +24,8 @@ public class CameraController : MonoBehaviour
 
     private void SetCameraPositionAndRotation()
     {
-        playerCamera.transform.position = GetMarblePosition();
         RotateAroundMarble();
+        this.transform.position = GetMarblePosition();
     }   
 
 
@@ -38,12 +39,16 @@ public class CameraController : MonoBehaviour
         return newCameraPosition + positionOffset;
     } 
 
-    public float xRotation, zRotation;
+    // public float xRotation, zRotation; //TEST VARIABLES. DELETE WHEN NO LONGER NEEDED
 
+    [SerializeField, Range(0,90f)] private float negativeXClamp;
+    [SerializeField, Range(0,-90f)] private float positiveXClamp;
+
+    private float xRotation = 0f;
     /// <summary>
     /// Rotates the camera around the marble object
-    /// </summary>    
-    private void RotateAroundMarble()
+    /// </summary> 
+    private Vector3 RotateAroundMarble()
     {
         
         //mouse X and mouse Y nomenclature is inverted
@@ -52,30 +57,42 @@ public class CameraController : MonoBehaviour
         Vector2 mouseInput = playerInput.SendMouseInput();
         float mouseX = mouseInput.y;
         float mouseY = mouseInput.x;
+        xRotation -= mouseX;
+        xRotation = Mathf.Clamp(xRotation, positiveXClamp, negativeXClamp);
+        Vector3 clampedRotation = this.transform.eulerAngles;
 
-        // Vector3 newRotation = new Vector3(xRotation, this.transform.eulerAngles.y, zRotation);
-        // newRotation.y += mouseY;
-        // this.transform.eulerAngles = newRotation;
-        // this.transform.rotation = Quaternion.Euler(xRotation, this.transform.rotation.y, zRotation);
-        this.transform.RotateAround(this.transform.position, this.transform.up, mouseY);
+        clampedRotation.x = xRotation;
+
+        this.transform.eulerAngles = clampedRotation; //Rotate up/down
+        this.transform.RotateAround(marbleTransform.transform.position, gravitationalDirection.transform.up, mouseY); //Rotate left/right
+
+
+
+        #region Manually Rotate around X and Z axes
+        
         if(Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.RotateAround(this.transform.position, this.transform.forward, 1f);
+            gravitationalDirection.transform.RotateAround(gravitationalDirection.transform.position, gravitationalDirection.transform.forward, 1f);
         }
         if(Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.RotateAround(this.transform.position, this.transform.forward, -1f);
+            gravitationalDirection.transform.RotateAround(gravitationalDirection.transform.position, gravitationalDirection.transform.forward, -1f);
         }
         if(Input.GetKey(KeyCode.UpArrow))
         {
-            this.transform.RotateAround(this.transform.position, this.transform.right, -1f);
+            gravitationalDirection.transform.RotateAround(gravitationalDirection.transform.position, gravitationalDirection.transform.right, -1f);
         }
         if(Input.GetKey(KeyCode.DownArrow))
         {
-            this.transform.RotateAround(this.transform.position, this.transform.right, 1f);
+            gravitationalDirection.transform.RotateAround(gravitationalDirection.transform.position, gravitationalDirection.transform.right, 1f);
         }
+
+        
+        #endregion
         //Test rotation for planetary gravity
         // this.transform.Rotate(.5f,0,0);
+
+        return this.transform.eulerAngles;
     }
 
 }
