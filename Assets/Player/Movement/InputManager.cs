@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    // [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerController playerMovement;
     // [SerializeField] MouseLook mouseLook;
-    [SerializeField] float inputRate;
+    [SerializeField, Tooltip("Determines how fast the input is set to the maximum value")] float inputRate;
     PlayerControls controls;
     PlayerControls.MovementActions groundMovement;
 
@@ -21,11 +21,6 @@ public class InputManager : MonoBehaviour
     float posXTimePressed, negXTimePressed, posYTimePressed, negYTimePressed;
 
 
-
-
-    float test = 10f;
-
-
     void Awake()
     {
         GetControls();
@@ -34,11 +29,11 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // controls.Enable();
+        controls.Enable();
     }
     private void OnDisable()
     {
-        // controls.Disable();
+        controls.Disable();
     }
     private void FixedUpdate()
     {
@@ -53,9 +48,14 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public Vector2 SetPlayerMovement()
+    {
+        return horzInput;
+    }
+
     private void ReceivePlayerMovement()
     {
-        // playerMovement.ReceiveInput(CombineMovement());
+        playerMovement.ReceiveInput(CombineMovement());
         // playerMovement.ReceiveInput(horzInput);
         // playerMovement.ReceiveJumpInput(PlayerJump());
         // playerMovement.ReceiveSprintInput(sprintInput);
@@ -103,7 +103,7 @@ public class InputManager : MonoBehaviour
         Vector2 _horzMovement = new Vector2(BreakXAxis(),BreakYAxis());
         _horzMovement = Vector2.ClampMagnitude(_horzMovement, 1);
         
-        //Debug.Log(_horzMovement);
+        
         return _horzMovement;
 
     }
