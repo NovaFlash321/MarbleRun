@@ -62,6 +62,10 @@ public class InputManager : MonoBehaviour
         // playerMovement.ReceiveCrouchInput(crouchInput);
     }
 
+    public Vector2 SendMouseInput()
+    {
+        return mouseInput;
+    }
     private void ReceiveMouseMovement()
     {
         // mouseLook.ReceiveInput(mouseInput);

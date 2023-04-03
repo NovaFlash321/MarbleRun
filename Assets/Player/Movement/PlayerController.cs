@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     #region  Player Components
 
-    [SerializeField, Tooltip("Player's Main Camera")] private Camera playerCamera;
+
     [SerializeField] private InputManager playerInput;
     #endregion
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         // mRigidBody.AddForce(horzInput);
         // Debug.Log(horzInput);
-        playerCamera.transform.LookAt(mTransform);
+        
         MovePlayer();
         
     }
