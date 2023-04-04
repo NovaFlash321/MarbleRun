@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 59577743}
   - component: {fileID: 59577744}
+  - component: {fileID: 59577745}
   m_Layer: 0
   m_Name: Gravity Direction
   m_TagString: Untagged
@@ -169,6 +170,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.56
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &59577745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59577742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c159aea0d065242841eba6c2afb612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &608316670
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 608316671}
   - component: {fileID: 608316672}
+  - component: {fileID: 608316673}
   m_Layer: 0
   m_Name: CameraDirection
   m_TagString: Untagged
@@ -194,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608316670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.49, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -223,6 +237,19 @@ MonoBehaviour:
   offsetZ: 0
   negativeXClamp: 37.2
   positiveXClamp: -50.7
+--- !u!135 &608316673
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608316670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1173547407
 GameObject:
   m_ObjectHideFlags: 0
