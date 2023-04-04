@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField, Tooltip("The direction the camera is facing")] private Camera playerCamera;
     [SerializeField] InputManager playerInput;
     [SerializeField] private Transform gravitationalDirection;
+    [SerializeField, Tooltip("Rotates the force direction on the Y axis")] private Transform forceDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +71,9 @@ public class CameraController : MonoBehaviour
         this.transform.localRotation = Quaternion.Euler(clampedRotation); //Rotate up/down
         // this.transform.RotateAround(gravitationalDirection.transform.position, gravitationalDirection.transform.up, mouseY); //Rotate left/right
 
+        Vector3 forceRotation = new Vector3(0,clampedRotation.y,0);
+        forceDirection.transform.localRotation=  Quaternion.Euler(forceRotation);
+
 
 
         
@@ -77,7 +81,12 @@ public class CameraController : MonoBehaviour
         // this.transform.Rotate(.5f,0,0);
 
         // return this.transform.eulerAngles;
-        Debug.Log(this.transform.rotation);
+        // Debug.Log(this.transform.rotation);
+    }
+
+    public float GetForceYDirection()
+    {
+        return forceDirection.transform.localRotation.y;
     }
 
 }

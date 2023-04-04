@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField, Tooltip("The Marble Object")] private GameObject marbleObject; //The transform of the Marble Object in the Game World
+    [SerializeField,Tooltip("Direction of the force the player will input")] private Transform forceDirection;
 
     #region Marble Components
         private Transform mTransform;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] private InputManager playerInput;
+    
     #endregion
 
 
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
         // mRigidBody.AddForce(horzInput);
         // Debug.Log(horzInput);
         
-        MovePlayer();
+
         
     }
 
@@ -66,6 +68,17 @@ public class PlayerController : MonoBehaviour
         mRigidBody.AddForce(SetForceEndpoint(horzInput));
     }
 
+    
+    private Vector3 SetForceDirection(Vector3 lerpedPoint)
+    {
+        // Debug.Log(forceDirection.transform.forward + forceDirection.transform.right);
+        Debug.Log(lerpedPoint);
+        Vector3 fDirection = (forceDirection.transform.forward * lerpedPoint.z) + (forceDirection.transform.right * lerpedPoint.x);
+        Debug.DrawRay(marbleObject.transform.position, fDirection, Color.green);
+
+        return fDirection;
+    }
+
 
     private Vector3 lerpedEndpoint;
     [SerializeField, Range(0,1f)] private float endpointSmoothSlider;
@@ -75,7 +88,11 @@ public class PlayerController : MonoBehaviour
 
         lerpedEndpoint = Vector3.Lerp(lerpedEndpoint, _3dDirection, endpointSmoothSlider);
 
-        return lerpedEndpoint;
+        Vector3 fPoint = SetForceDirection(lerpedEndpoint);
+        // Debug.Log(_3dDirection);
+        // Debug.Log(SetForceDirection(lerpedEndpoint));
+
+        return fPoint;
     }
 
     public void ReceiveInput()
