@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
 
         SetPlayerMovementDirection();
+        Jump();
         
     }
 
@@ -67,7 +68,24 @@ public class PlayerController : MonoBehaviour
         SetAngularVelocity();
     }
 
-    
+    [SerializeField, Range(1f,5f)] private float jumpForce;
+    private bool isInAir = false;
+    private void Jump()
+    {
+        if (playerInput.PlayerJump() == 1 && !isInAir)
+        {
+            mRigidBody.velocity += (forceDirection.transform.up * jumpForce);
+            isInAir = true;
+        }  
+        RaycastHit groundCheck;
+        if(Physics.Raycast(mTransform.transform.position, -forceDirection.transform.up, out groundCheck, Mathf.Infinity))
+        {
+            Debug.Log(Vector3.Distance(groundCheck.point, mTransform.transform.position));
+            if(Vector3.Distance(groundCheck.point, mTransform.transform.position) <= 0.5f) isInAir = false;
+            else isInAir =  true;
+            
+        }
+    }
     private Vector3 SetForceDirection(Vector3 lerpedPoint)
     {
         Vector3 fDirection = (forceDirection.transform.forward * lerpedPoint.z) + (forceDirection.transform.right * lerpedPoint.x);

@@ -70,14 +70,14 @@ public class InputManager : MonoBehaviour
         // mouseLook.ReceiveInput(mouseInput);
     }
 
-    private float PlayerJump()
+    public float PlayerJump()
     {
-        // PlayerControls _con = new PlayerControls();
-        // PlayerControls.MovementActions ground = controls.Movement;
-        // if(ground.Jump.WasPressedThisFrame()) return 1;
-        // else return 0;
+        PlayerControls _con = new PlayerControls();
+        PlayerControls.MovementActions ground = controls.Movement;
+        if(ground.Jump.WasPressedThisFrame()) return 1;
+        else return 0;
         // return ground.Jump.WasPressedThisFrame();
-        return 1;
+        // return 1;
     }
 
 

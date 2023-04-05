@@ -1,0 +1,16 @@
+{
+    "name": "GameScripts.External",
+    "rootNamespace": "",
+    "references": [
+        "GUID:72e772c0c6fa658489e6a3e077fdd19f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
