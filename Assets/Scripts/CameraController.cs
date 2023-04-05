@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
         float mouseX = mouseInput.y;
         float mouseY = mouseInput.x;
         xRotation -= mouseX;
-        yRotation -= mouseY;
+        yRotation -= -mouseY;
         xRotation = Mathf.Clamp(xRotation, positiveXClamp, negativeXClamp);
         Vector3 clampedRotation = this.transform.localRotation.eulerAngles;
 

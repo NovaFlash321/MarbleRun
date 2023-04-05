@@ -43,8 +43,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        // mRigidBody.AddForce(horzInput);
-        // Debug.Log(horzInput);
+
         
 
         
@@ -62,20 +61,17 @@ public class PlayerController : MonoBehaviour
     private void SetPlayerMovementDirection()
     {
         ReceiveInput();
-        // SetForceEndpoint(horzInput);
-
-        // Debug.DrawLine(marbleObject.transform.position, SetForceEndpoint(horzInput));
-        mRigidBody.AddForce(SetForceEndpoint(horzInput));
+        Vector3 direction = SetForceEndpoint(horzInput) * forceMultiplier;
+        
+        mRigidBody.AddForce(direction);
+        SetAngularVelocity();
     }
 
     
     private Vector3 SetForceDirection(Vector3 lerpedPoint)
     {
-        // Debug.Log(forceDirection.transform.forward + forceDirection.transform.right);
-        Debug.Log(lerpedPoint);
         Vector3 fDirection = (forceDirection.transform.forward * lerpedPoint.z) + (forceDirection.transform.right * lerpedPoint.x);
-        Debug.DrawRay(marbleObject.transform.position, fDirection, Color.green);
-
+        
         return fDirection;
     }
 
@@ -94,6 +90,26 @@ public class PlayerController : MonoBehaviour
 
         return fPoint;
     }
+
+    [SerializeField] private float angularVelocityMultiplier;
+    [SerializeField, Range(0, 1f)] private float angVelocitySmoothness;  
+    private Vector3 lerpedDirection;
+    /// <summary>
+    /// Provides an apperance that the marble is drifting
+    /// </summary>
+    private void SetAngularVelocity()
+    {
+        // Vector3 vDirection = new Vector3(_direction.z, _direction.y, _direction.x);
+        // mRigidBody.angularVelocity = vDirection * angularVelocityMultiplier;
+        
+        Vector3 vDirection = ((horzInput.y * forceDirection.transform.right) + (-horzInput.x * forceDirection.transform.forward));
+
+        lerpedDirection = Vector3.Lerp(lerpedDirection, vDirection, angVelocitySmoothness);
+        Debug.DrawRay(mTransform.transform.position, lerpedDirection, Color.green);
+
+        mRigidBody.angularVelocity = lerpedDirection  * angularVelocityMultiplier;
+    }
+    
 
     public void ReceiveInput()
     {
