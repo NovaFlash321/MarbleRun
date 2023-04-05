@@ -5,7 +5,6 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] PlayerController playerMovement; 
-    // [SerializeField] MouseLook mouseLook;
     [SerializeField, Tooltip("Determines how fast the input is set to the maximum value")] float inputRate;
     PlayerControls controls;
     PlayerControls.MovementActions groundMovement;
