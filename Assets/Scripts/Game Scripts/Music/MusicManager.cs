@@ -9,7 +9,7 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicSource.clip = musicTracks[Random.Range(0,musicTracks.Count)];
+        musicSource.clip = musicTracks[Random.Range(0,musicTracks.Count - 1)];
         musicSource.Play();
         DontDestroyOnLoad(this.gameObject);
     }

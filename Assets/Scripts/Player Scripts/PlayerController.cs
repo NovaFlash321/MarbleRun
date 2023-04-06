@@ -77,13 +77,16 @@ public class PlayerController : MonoBehaviour
             mRigidBody.velocity += (forceDirection.transform.up * jumpForce);
             isInAir = true;
         }  
-        RaycastHit groundCheck;
-        if(Physics.Raycast(mTransform.transform.position, -forceDirection.transform.up, out groundCheck, Mathf.Infinity))
+        
+        if(isInAir)
         {
-            Debug.Log(Vector3.Distance(groundCheck.point, mTransform.transform.position));
-            if(Vector3.Distance(groundCheck.point, mTransform.transform.position) <= 0.5f) isInAir = false;
-            else isInAir =  true;
-            
+            RaycastHit groundCheck;
+            if(Physics.Raycast(mTransform.transform.position, -forceDirection.transform.up, out groundCheck, Mathf.Infinity))
+            {
+                if(Vector3.Distance(groundCheck.point, mTransform.transform.position) <= 0.5f) isInAir = false;
+                else isInAir =  true;
+                
+            }
         }
     }
     private Vector3 SetForceDirection(Vector3 lerpedPoint)
