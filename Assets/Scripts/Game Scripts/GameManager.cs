@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,20 +10,36 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject SpawnPoint;
     [SerializeField] GameObject GoalPoint;
     [SerializeField]private LevelState lState;
+    [SerializeField] private int firstLevel;
     private Camera spawnCamera, goalCamera, playerCamera;
+    [SerializeField]private int levelIndex;
     // Start is called before the first frame update
     void Start()
     {
-        OnLevelLoad();
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
+        DontDestroyOnLoad(this);
+
+        
     }
 
+    bool hasLoadedLevel = false;
     // Update is called once per frame
     void Update()
     {
+
+
+        if(SceneManager.GetActiveScene().buildIndex != levelIndex && !hasLoadedLevel) 
+        {
+            OnLevelLoad();
+        }
         CheckGameState();
+        
+
         
         // CheckForNewCamera();
     }
+
+
 
     private void CheckGameState()
     {
@@ -67,6 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelLoad()
     {
+        SetLevelState(LevelState.LEVELSTART);
         SpawnPoint = GameObject.FindGameObjectWithTag("Spawn");
         if(SpawnPoint != null)
         {
@@ -79,12 +97,36 @@ public class GameManager : MonoBehaviour
             goalCamera = GoalPoint.GetComponentInChildren<Camera>();
             goalCamera.gameObject.SetActive(false);
         }
+        hasLoadedLevel = true;
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     public void SetLevelState(LevelState _state)
     {
         lState = _state;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    public void GetLevelAssets()
+    {
+        
+    }
+
+
+    /// <summary>
+    ///Loads the first level of the game
+    ///  </summary>
+    public void StartGame()
+    {
+        
+        SceneManager.LoadSceneAsync(firstLevel, LoadSceneMode.Single);
+        
+
+    }
+
 }
 
 public enum LevelState{
