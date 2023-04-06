@@ -30,13 +30,8 @@ public class GoalTrigger : MonoBehaviour
         pMarble.transform.position = Vector3.Slerp(pMarble.transform.position, this.transform.position, 0.01f);
     }
     private void OnTriggerEnter(Collider other) {
-        GameObject[] cameras = gManager.GetCameras();
-        foreach(GameObject _obj in cameras)
-        {
-            _obj.SetActive(false);
-        }
-        goalCamera.gameObject.SetActive(true);
 
+        gManager.SetLevelState(LevelState.LEVELEND);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>().OnDisable();
         
