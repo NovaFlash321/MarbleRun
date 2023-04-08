@@ -7,6 +7,7 @@ TagManager:
   - Camera
   - Spawn
   - Goal
+  - LevelData
   layers:
   - Default
   - TransparentFX

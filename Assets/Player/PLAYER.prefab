@@ -448,8 +448,8 @@ MonoBehaviour:
   marbleObject: {fileID: 3862705654486955619}
   forceDirection: {fileID: 3862705653308901188}
   playerInput: {fileID: 3862705655074748594}
-  forceMultiplier: 6.54
+  forceMultiplier: 3.85
   jumpForce: 5
-  endpointSmoothSlider: 0.393
+  endpointSmoothSlider: 0.302
   angularVelocityMultiplier: 600
   angVelocitySmoothness: 0.299
